@@ -8,7 +8,7 @@ import neopixel
 DEFAULT_I2C_ADDR = 0x27
 
 #-------move to Drip---------
-#打開ADC並配置0-3.3V的範圍
+# Turn on ADC, set volt range: 0-3.3V
 adc = ADC(Pin(34))
 adc.atten(ADC.ATTN_11DB)
 adc.width(ADC.WIDTH_12BIT)
@@ -34,11 +34,11 @@ np = neopixel.NeoPixel(pin, 4)
 
 #亮度:0 - 255
 brightness=10                                
-colors=[[brightness,0,0],                    #红
-        [0,brightness,0],                    #绿
-        [0,0,brightness],                    #蓝
-        [brightness,brightness,brightness],  #白
-        [0,0,0]]                             #关闭
+colors=[[brightness,0,0],                    #red
+        [0,brightness,0],                    #green
+        [0,0,brightness],                    #blue
+        [brightness,brightness,brightness],  #white
+        [0,0,0]]                             #off
 #---------------------------------
 
 try:
@@ -51,7 +51,7 @@ try:
         #------------------------
 
         DHT.measure()
-        #調用DHT的內置函數獲取溫度和濕度數據
+        #get DHT func for temperature and humidity
         print('temperature:',DHT.temperature(),'℃','humidity:',DHT.humidity(),'%')
 
         lcd.move_to(1, 0)
@@ -84,7 +84,7 @@ try:
 
 
 
-        gasVal = gas.value()#讀取MQ-2的值
+        gasVal = gas.value()#read MQ-2
         print("Gas: ", gasVal)
 
         if(gasVal != 1): # dangerous
@@ -100,8 +100,8 @@ try:
             #---------------------------
             
             #-------move to Fan.run()---------
-            INA.duty(0) # 占空比范围为0-1023
-            INB.duty(700)#逆時針轉
+            INA.duty(0) # range: 0-1023
+            INB.duty(700) # anti-clockwise spin
             time.sleep(10) # run 10 secs
             INA.duty(0)
             INB.duty(0)
